@@ -1,0 +1,10 @@
+
+
+Rewrite to www
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^https://www.xenosoftsolutions.com[nc]
+RewriteRule ^(.*)$ http://www.https://www.xenosoftsolutions.com/$1 [r=301,nc]
+
+
+

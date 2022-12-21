@@ -1,4 +1,10 @@
 {
-  "theme_color": "#d7dada"
- 
-}
+  "name": "xenosoftsolutions",
+  "short_name": "xeno",
+  "theme_color": "#F0FFF0",
+  "background_color": "#F0FFF0",
+  "display": "browser",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+  }
