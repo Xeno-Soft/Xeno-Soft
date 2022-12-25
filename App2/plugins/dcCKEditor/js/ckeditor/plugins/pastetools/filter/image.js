@@ -1,0 +1,30 @@
+﻿(function(){'use strict';CKEDITOR.pasteFilters.image=function(html,editor,rtf){var imgTags;if(editor.activeFilter&&!editor.activeFilter.check('img[src]')){return html;}
+imgTags=extractTagsFromHtml(html);if(imgTags.length===0){return html;}
+if(rtf){return handleRtfImages(html,rtf,imgTags);}
+return handleBlobImages(editor,html,imgTags);};CKEDITOR.pasteFilters.image.extractFromRtf=extractFromRtf;CKEDITOR.pasteFilters.image.extractTagsFromHtml=extractTagsFromHtml;CKEDITOR.pasteFilters.image.getImageType=getImageType;CKEDITOR.pasteFilters.image.createSrcWithBase64=createSrcWithBase64;CKEDITOR.pasteFilters.image.convertBlobUrlToBase64=convertBlobUrlToBase64;CKEDITOR.pasteFilters.image.getImageTypeFromSignature=getImageTypeFromSignature;CKEDITOR.pasteFilters.image.supportedImageTypes=['image/png','image/jpeg','image/gif'];CKEDITOR.pasteFilters.image.recognizableImageTypes=[{marker:/\\pngblip/,type:'image/png'},{marker:/\\jpegblip/,type:'image/jpeg'},{marker:/\\emfblip/,type:'image/emf'},{marker:/\\wmetafile\d/,type:'image/wmf'}];CKEDITOR.pasteFilters.image.recognizableImageSignatures=[{signature:'ffd8ff',type:'image/jpeg'},{signature:'47494638',type:'image/gif'},{signature:'89504e47',type:'image/png'}];function handleRtfImages(html,rtf,imgTags){var hexImages=extractFromRtf(rtf),newSrcValues,i;if(hexImages.length===0){return html;}
+newSrcValues=CKEDITOR.tools.array.map(hexImages,function(img){return createSrcWithBase64(img);},this);if(imgTags.length!==newSrcValues.length){CKEDITOR.error('pastetools-failed-image-extraction',{rtf:hexImages.length,html:imgTags.length});return html;}
+for(i=0;i<imgTags.length;i++){if(imgTags[i].indexOf('file://')===0){if(!newSrcValues[i]){CKEDITOR.error('pastetools-unsupported-image',{type:hexImages[i].type,index:i});continue;}
+var escapedPath=imgTags[i].replace(/\\/g,'\\\\'),imgRegex=new RegExp('(<img [^>]*src=["\']?)'+escapedPath);html=html.replace(imgRegex,'$1'+newSrcValues[i]);}}
+return html;}
+function handleBlobImages(editor,html,imgTags){var blobUrls=CKEDITOR.tools.array.unique(CKEDITOR.tools.array.filter(imgTags,function(imgTag){return imgTag.match(/^blob:/i);})),promises=CKEDITOR.tools.array.map(blobUrls,convertBlobUrlToBase64);CKEDITOR.tools.promise.all(promises).then(function(dataUrls){CKEDITOR.tools.array.forEach(dataUrls,function(dataUrl,i){if(!dataUrl){CKEDITOR.error('pastetools-unsupported-image',{type:'blob',index:i});return;}
+var blob=blobUrls[i],nodeList=editor.editable().find('img[src="'+blob+'"]').toArray();CKEDITOR.tools.array.forEach(nodeList,function(element){element.setAttribute('src',dataUrl);element.setAttribute('data-cke-saved-src',dataUrl);},this);});});return html;}
+function extractFromRtf(rtfContent){var filter=CKEDITOR.plugins.pastetools.filters.common.rtf,ret=[],wholeImages;rtfContent=filter.removeGroups(rtfContent,'(?:(?:header|footer)[lrf]?|nonshppict|shprslt)');wholeImages=filter.getGroups(rtfContent,'pict');if(!wholeImages){return ret;}
+for(var i=0;i<wholeImages.length;i++){var currentImage=wholeImages[i].content,imageId=getImageId(currentImage),imageType=getImageType(currentImage),imageDataIndex=getImageIndex(imageId),isAlreadyExtracted=imageDataIndex!==-1&&ret[imageDataIndex].hex,isDuplicated=isAlreadyExtracted&&ret[imageDataIndex].type===imageType,isAlternateFormat=isAlreadyExtracted&&ret[imageDataIndex].type!==imageType&&imageDataIndex===ret.length-1,isWordArtShape=currentImage.indexOf('\\defshp')!==-1,isSupportedType=CKEDITOR.tools.array.indexOf(CKEDITOR.pasteFilters.image.supportedImageTypes,imageType)!==-1,isHorizontalLine=CKEDITOR.tools.indexOf(currentImage,'fHorizRule')!==-1;if(isDuplicated){ret.push(ret[imageDataIndex]);continue;}
+if(isAlternateFormat||isWordArtShape){continue;}
+if(isHorizontalLine){continue;}
+var newImageData={id:imageId,hex:isSupportedType?getImageContent(currentImage):null,type:imageType};if(imageDataIndex!==-1){ret.splice(imageDataIndex,1,newImageData);}else{ret.push(newImageData);}}
+return ret;function getImageIndex(id){if(typeof id!=='string'){return-1;}
+return CKEDITOR.tools.array.indexOf(ret,function(image){return image.id===id;});}
+function getImageId(image){var blipUidRegex=/\\blipuid (\w+)\}/,blipTagRegex=/\\bliptag(-?\d+)/,blipUidMatch=image.match(blipUidRegex),blipTagMatch=image.match(blipTagRegex);if(blipUidMatch){return blipUidMatch[1];}else if(blipTagMatch){return blipTagMatch[1];}
+return null;}
+function getImageContent(image){var content=filter.extractGroupContent(image);return content.replace(/\s/g,'');}}
+function extractTagsFromHtml(html){var regexp=/<img[^>]+src="([^"]+)[^>]+/g,ret=[],item;while(item=regexp.exec(html)){ret.push(item[1]);}
+return ret;}
+function getImageType(imageContent){var tests=CKEDITOR.pasteFilters.image.recognizableImageTypes,extractedType=CKEDITOR.tools.array.find(tests,function(test){return test.marker.test(imageContent);});if(extractedType){return extractedType.type;}
+return'unknown';}
+function createSrcWithBase64(img){var isSupportedType=CKEDITOR.tools.array.indexOf(CKEDITOR.pasteFilters.image.supportedImageTypes,img.type)!==-1,data=img.hex;if(!isSupportedType){return null;}
+if(typeof data==='string'){data=CKEDITOR.tools.convertHexStringToBytes(img.hex);}
+return img.type?'data:'+img.type+';base64,'+CKEDITOR.tools.convertBytesToBase64(data):null;}
+function convertBlobUrlToBase64(blobUrlSrc){return new CKEDITOR.tools.promise(function(resolve){CKEDITOR.ajax.load(blobUrlSrc,function(arrayBuffer){var data=new Uint8Array(arrayBuffer),imageType=getImageTypeFromSignature(data),base64=createSrcWithBase64({type:imageType,hex:data});resolve(base64);},'arraybuffer');});}
+function getImageTypeFromSignature(bytesArray){var fileSignature=bytesArray.subarray(0,4),hexSignature=CKEDITOR.tools.array.map(fileSignature,function(signatureByte){return signatureByte.toString(16);}).join(''),matchedType=CKEDITOR.tools.array.find(CKEDITOR.pasteFilters.image.recognizableImageSignatures,function(test){return hexSignature.indexOf(test.signature)===0;});if(!matchedType){return null;}
+return matchedType.type;}})();

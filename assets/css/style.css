@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
+  margin: 2px;
+  padding: 2px;
   box-sizing: border-box;
   text-decoration: none;
   outline: none;
@@ -1091,7 +1091,7 @@ form .button-area {
 .footer {
   min-height: auto;
   padding-top: 0;
-  background: rgb(110, 110, 119);
+  background: rgb(240, 240, 240);
 }
 .footer .box-container {
   display: flex;
@@ -1104,28 +1104,28 @@ form .button-area {
 }
 .footer .box-container .box h3 {
   font-size: 2.5rem;
-  color: #fff;
+  color: #121212;
   padding-bottom: 1rem;
   font-weight: normal;
 }
 .footer .box-container .box p {
   font-size: 1.5rem;
-  color: #ccc;
+  color: #121212;
   padding: 0.7rem 0;
   text-transform: none;
 }
 .footer .box-container .box p i {
   padding-right: 1rem;
-  color: #ffae00;
+  color: #121212;
 }
 .footer .box-container .box a {
   font-size: 1.5rem;
-  color: rgb(238, 238, 238);
+  color: #121212;
   padding: 0.3rem 0;
   display: block;
 }
 .footer .box-container .box a:hover {
-  color: #ffae00;
+  color: #121212;
 }
 .footer .box-container .box .share {
   display: flex;
@@ -1157,11 +1157,11 @@ form .button-area {
   font-size: 1.5rem;
   font-family: "Nunito", sans-serif;
   font-weight: 600;
-  color: #fff;
+  color: #121212;
   border-top: 0.1rem solid #fff3;
 }
 .footer .credit a {
-  color: #ffae00;
+  color: #121212;
 }
 .footer .fa {
   color: #e90606;
@@ -1223,11 +1223,13 @@ form .button-area {
   top: calc(100% - 12rem);
 }
 /* scroll top ends */
-p.copyright {
+copyright {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 10px;
   text-align: center;
-  color: black;
+  color: #121212;
 }
+
+
 
 

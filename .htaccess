@@ -1,4 +1,6 @@
 
+RewriteEngine on
+
 RewriteOptions inherit
 
 ## Different Content Types
@@ -65,3 +67,6 @@ RewriteOptions inherit
         Header set Cache-Control "public"
     </FilesMatch>
 </IfModule>
+RewriteCond %{HTTP_HOST} ^xenosoftsolutions\.com$
+RewriteRule ^/?$ "https\:\/\/www\.xenosoftsolutions\.com\/" [R=301,L]
+

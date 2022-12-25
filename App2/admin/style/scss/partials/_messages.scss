@@ -1,0 +1,232 @@
+.warn,
+.warning,
+.info {
+  font-style: normal;
+  padding: 0.2em 0.66em 0.2em;
+  text-indent: 24px;
+  display: inline-block;
+  line-height: 1.5em;
+  border-radius: 3px;
+}
+
+.info {
+  color: var(--msg-info-color);
+  background: url(msg-info.png) no-repeat 0.3em 0.3em;
+  background-color: var(--msg-info-background);
+  border: 1px solid var(--msg-info-border);
+}
+
+.warn,
+.warning {
+  color: var(--msg-warn-color);
+  background: url(msg-warning.png) no-repeat 0.3em 0.3em;
+  background-color: var(--msg-warn-background);
+  border: 1px solid var(--msg-warn-border);
+}
+
+div.warn,
+div.warning,
+div.info {
+  display: block;
+  padding: 1em 1em 0.33em 1em;
+  margin-bottom: 1em;
+}
+
+span.warn,
+span.warning,
+span.info {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-position: 0.3em 0.2em;
+}
+
+.error,
+.message,
+.static-msg,
+.success,
+.warning-msg {
+  padding: 1em 0.5em 0.5em 48px;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  box-shadow: 1px 1px 2px var(--msg-shadow);
+}
+
+p.error,
+p.message,
+p.static-msg,
+p.success,
+p.warning-msg {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-top: 0.5em;
+}
+
+.error {
+  background: url(msg-error.png) no-repeat 0.7em 0.7em;
+  background-color: var(--msg-error-background);
+  color: var(--msg-error-color);
+  animation-name: kf-error;
+  animation-duration: 0.5s;
+}
+
+@keyframes kf-error {
+  0% {
+    background-color: var(--msg-error-background-alt);
+  }
+
+  100% {
+    background-color: var(--msg-error-background);
+  }
+}
+
+.message,
+.static-msg {
+  color: var(--msg-color);
+  background: url(msg-std.png) no-repeat 0.7em 0.7em;
+  background-color: var(--msg-background);
+}
+
+.message {
+  animation-name: kf-message;
+  animation-duration: 0.5s;
+}
+
+@keyframes kf-message {
+  0% {
+    background-color: var(--msg-background-alt);
+  }
+
+  100% {
+    background-color: var(--msg-background);
+  }
+}
+
+.message a,
+.static-msg a,
+.message h3,
+.static-msg h3 {
+  color: var(--msg-color);
+}
+
+.success {
+  color: var(--msg-success-color);
+}
+
+.success {
+  background: url(msg-success.png) no-repeat 0.7em 0.7em;
+  background-color: var(--msg-success-background);
+  animation-name: kf-success;
+  animation-duration: 0.5s;
+}
+
+@keyframes kf-success {
+  0% {
+    background-color: var(--msg-success-background-alt);
+  }
+
+  100% {
+    background-color: var(--msg-success-background);
+  }
+}
+
+.warning-msg {
+  color: var(--msg-warn-color);
+  background: url(msg-warning.png) no-repeat 0.7em 0.7em;
+  background-color: var(--msg-warn-background-alt);
+  border: 1px solid var(--msg-warn-border);
+  animation-name: kf-warning;
+  animation-duration: 0.5s;
+}
+
+@keyframes kf-warning {
+  0% {
+    background-color: var(--msg-warn-background);
+  }
+
+  100% {
+    background-color: var(--msg-warn-background-alt);
+  }
+}
+
+.success a,
+.warning-msg a,
+.info a {
+  color: var(--msg-info-color);
+}
+
+.notice-ts {
+  font-size: 0.875em;
+  padding: 2px 0.5em;
+  margin-right: 0.5em;
+  border-radius: 0.25em;
+  color: var(--body-color);
+  background: var(--body-background);
+  filter: opacity(0.85);
+}
+
+.close-notice-parent {
+  position: relative;
+  padding-right: 3em;
+}
+
+.close-notice {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  position: absolute;
+  top: 1em;
+  right: 0.5em;
+
+  &:hover,
+  &:focus {
+    background: none;
+  }
+}
+
+.dc-update {
+  padding: 1em 48px 0.5em 48px;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  color: var(--dc-update-color);
+  background: url(msg-success.png) no-repeat 0.7em 0.7em;
+  background-color: var(--dc-update-background);
+  box-shadow: 1px 1px 2px var(--msg-shadow);
+
+  h3 {
+    margin-top: 0;
+    color: var(--dc-update-color);
+  }
+
+  p {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  a {
+    color: var(--dc-update-color);
+    margin-right: 1em;
+
+    &.button {
+      padding: 0.5em 1em;
+    }
+  }
+}
+
+.updt-info a {
+  margin-left: 2em;
+  border-color: var(--dc-update-color);
+  font-weight: bold;
+}
+
+body.ajax-loader {
+  #header {
+    border-bottom-color: var(--ajax-loader);
+    transition: border-bottom-color 0.3s ease;
+  }
+
+  #collapser {
+    background-color: var(--ajax-loader);
+    transition: background-color 0.3s ease;
+  }
+}

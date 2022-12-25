@@ -1,0 +1,166 @@
+/* pour les alignements verticaux */
+
+#theme-new,
+#theme-activate,
+#theme-deactivate,
+#theme-update {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.box.theme {
+  margin: 5px;
+  padding: 10px 10px 5px 10px;
+  border: 1px solid var(--theme-box-border);
+  position: relative;
+  &:hover {
+    background: var(--theme-box-over);
+  }
+}
+
+.module-name,
+.module-name label {
+  margin-bottom: 0.5em;
+  color: var(--theme-name-color);
+}
+
+.module-sshot {
+  text-align: center;
+  img {
+    // padding: 5px;
+    background: var(--theme-img-background);
+    // box-shadow: 1px 1px 2px var(--theme-img-shadow);
+    box-shadow: 0.9px 0.9px 2.2px rgba(0, 0, 0, 0.07), 2.1px 2.1px 5.3px rgba(0, 0, 0, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.042),
+      7.1px 7.1px 17.9px rgba(0, 0, 0, 0.035), 13.4px 13.4px 33.4px rgba(0, 0, 0, 0.028), 32px 32px 80px rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--theme-img-border);
+    max-width: 100%;
+  }
+}
+
+.module-infos p {
+  margin-top: 0.5em;
+}
+
+.module-actions {
+  margin-top: 1em;
+}
+
+.module-post-actions {
+  display: flex;
+  flex-wrap: wrap;
+  input {
+    margin: 0 0.25em 0.5em 0;
+  }
+}
+
+.bloc-toggler {
+  text-align: right;
+  img {
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  a:focus img {
+    opacity: 1;
+  }
+}
+
+span.module-version::before {
+  content: '- ';
+}
+
+.module-name input[type='checkbox'] {
+  margin-bottom: 0;
+}
+
+/**
+Les screenshots des thèmes ont deux tailles possibles :
+- dans Ajouter des thèmes : 240px (+ 10 padding image + 20 padding boîte + 6 bordure + 2 ombrage = 278)
+- dans Thèmes installés : 280px (+ 10 padding-image + 20 padding-boîte + 2 ombrage = 318)
+On adapte largeur et hauteur en fonction
+*/
+
+.box.theme details {
+  margin-top: 0.25em;
+  .mod-more {
+    margin-top: 0.5em;
+    display: inline-block;
+  }
+}
+
+#theme-new .box.theme,
+#theme-update .box.theme {
+  /* Ajouter un thème */
+  width: 278px;
+  min-height: 275px;
+}
+
+#theme-new .module-sshot img {
+  /* Pour ceux qui n'ont pas de miniature on contraint l'image */
+  max-width: 240px;
+  max-height: 210px;
+  overflow: hidden;
+}
+
+#theme-deactivate .box.theme {
+  /* Thèmes désactivés */
+  width: 278px;
+  &:hover {
+    background: url(dc_logos/sq-logo-32.png) no-repeat top right;
+    background-color: transparent;
+  }
+}
+
+#theme-activate .box.theme {
+  /* Thèmes installés */
+  width: 318px;
+  min-height: 304px;
+  max-width: 100%;
+}
+
+.with-js .module-sshot:hover {
+  cursor: pointer;
+}
+
+/* mise en forme pour la boîte du thème courant */
+
+.box.current-theme {
+  /* Thème courant */
+  width: 646px;
+  margin: 5px;
+  padding: 20px 18px 6px;
+  background: var(--theme-current-background);
+  border: 1px solid var(--theme-current-border);
+  border-radius: 0.5em;
+  min-height: 326px;
+  box-shadow: 1px 1px 2px var(--theme-current-shadow);
+  position: relative;
+  .module-sshot:hover {
+    cursor: auto;
+  }
+  .module-sshot img {
+    float: left;
+    margin-right: 2em;
+    border: 9px solid var(--theme-current-img-border);
+    // padding: 5px;
+    max-width: 308px;
+    max-height: 273px;
+  }
+  .module-name {
+    color: var(--theme-current-name-color);
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+  .module-actions {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+}
+
+.current-actions {
+  width: auto;
+  overflow: hidden;
+  padding-top: 2em;
+}

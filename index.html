@@ -12,6 +12,7 @@
       gtag('config', 'G-KKSP04G5BS');
     </script>
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="./assets/images/icon.png">
     <meta http-equiv="Cache-control" content="public">
     <meta name="author" content="Xeno Soft Solutions">
     <meta name="theme-color" content="#317EFB"/>
@@ -34,7 +35,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Favicon -->
-    <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.webp" type="image/x-webp">
+    <link id='favicon' rel="shortcut icon" href="/assets/images/favicon.webp" type="image/x-webp">
     <title>Portfolio | Willie Joseph</title>
 </head>
 <body oncontextmenu="return false">
@@ -86,7 +87,11 @@
 </div>
 </section>
 <!-- hero section ends -->
-
+<script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+</script>
 
 <!-- about section starts -->
 <section class="about" id="about">
@@ -137,15 +142,15 @@
     <div class="container">
           <div class="row" id="skillsContainer">
 
-             <div class="bar">
+           <!-- <div class="bar">
               <div class="info">
                 <img alt="adobe" width="640" height="360" src="https://img.icons8.com/color/48/000000/adobe-xd.png"/>
                 <span>AdobeXD</span>
               </div>
-            </div> 
+            </div>-->
 
-      </div>
-</div>
+        </div>
+    </div>
 </section>
 <!-- skills section ends -->
 
@@ -522,11 +527,92 @@
           </div>
       </div>
   </div>
-
+    <div id="cookiePopup">
+        <h4>Cookie Consent</h4>
+        <p>Our website uses cookies to provide your browsing experience and relavent informations.Before continuing to use our website, you agree & accept of our  <a href="#">Cookie Policy & Privacy</a></p>
+        <button id="acceptCookie">Accept</button> 
+    </div>
+<style>
+ #cookiePopup {
+    background: white;
+    width: 25%;
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    box-shadow: 0px 0px 15px #cccccc;
+    padding: 5px 10px;
+  }
+    #cookiePopup p{
+    text-align: left;
+    font-size: 15px;
+    color: #4e4e4e;
+  }
+  #cookiePopup button{
+    width: 100%;
+    border: navajowhite;
+    background: #097fb7;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+  }
+</style>
+<script type="text/javascript">
+    // set cookie according to you
+    var cookieName= "CodingStatus";
+    var cookieValue="Coding Tutorials";
+    var cookieExpireDays= 30;
+    
+    // when users click accept button
+    let acceptCookie= document.getElementById("acceptCookie");
+    acceptCookie.onclick= function(){
+        createCookie(cookieName, cookieValue, cookieExpireDays);
+    }
+    
+    // function to set cookie in web browser
+     let createCookie= function(cookieName, cookieValue, cookieExpireDays){
+      let currentDate = new Date();
+      currentDate.setTime(currentDate.getTime() + (cookieExpireDays*24*60*60*1000));
+      let expires = "expires=" + currentDate.toGMTString();
+      document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+      if(document.cookie){
+        document.getElementById("cookiePopup").style.display = "none";
+      }else{
+        alert("Unable to set cookie. Please allow all cookies site from cookie setting of your browser");
+      }
+    
+     }
+    
+    // get cookie from the web browser
+    let getCookie= function(cookieName){
+      let name = cookieName + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    // check cookie is set or not
+    let checkCookie= function(){
+        let check=getCookie(cookieName);
+        if(check==""){
+            document.getElementById("cookiePopup").style.display = "block";
+        }else{
+            
+            document.getElementById("cookiePopup").style.display = "none";
+        }
+    }
+    checkCookie();
+</script>
   <h1 class="credit">Designed with <i class="fa fa-heart pulse"></i> by <a href="https://api.whatsapp.com/send?phone=13453243279" rel="noopener nofollow"> Xeno Software Solutions</a></h1>
   <p class="copyright"><i class="fa fa-copyright fa-8x" aria-hidden="true"></i>2022 Xeno Software Solutions. All Rights Reserved.</p>
   <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=e1HTaeouf4JU8CLARltBM7ecMdEYFiy28CZrdglFOvSLeC9o2joOk4n3L9Oo"></script></span>
-</section>
 <!-- footer section ends -->
 
 

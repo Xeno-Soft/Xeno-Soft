@@ -1,0 +1,1 @@
+'use strict';Object.assign(dotclear.msg,dotclear.getData('file_upload_msg'));dotclear.jsUpload={};Object.assign(dotclear.jsUpload,dotclear.getData('file_upload'));

@@ -1,0 +1,2 @@
+'use strict';Object.assign(dotclear,dotclear.getData('ck_editor_ctx'));Object.assign(dotclear.msg,dotclear.getData('ck_editor_msg'));Object.assign(window,dotclear.getData('ck_editor_var'));const CKEDITOR_GETURL=function(resource){if(resource.indexOf(':/')==-1&&resource.indexOf('/')!==0){return this.basePath+resource;}
+return resource;};

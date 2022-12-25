@@ -1,0 +1,70 @@
+/* Typographie */
+
+:root {
+  // May be superseed by user pref (typically from 50% to 75%, default 62.5%)
+  --html-font-size: #{$html-font-size};
+}
+
+// base //
+html {
+  font-size: $html-font-size; // html font-size for IE and Edge
+  font-size: var(--html-font-size); // html font-size for modern browsers
+}
+
+body {
+  color: var(--body-color);
+  background: var(--body-background);
+  font-size: $body-font-size;
+  line-height: 1.5;
+  font-family: $sans-serif;
+}
+
+// titres //
+
+h2,
+h3,
+.as_h3,
+h4,
+.as_h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+h2 {
+  color: var(--title-color);
+  font-size: 1.5em;
+  font-weight: normal;
+  line-height: 1.25;
+  padding: 0 0 1.5em;
+}
+
+h3,
+.as_h3 {
+  color: var(--title-alt-color);
+  font-size: 1.34em;
+  font-weight: normal;
+  line-height: 1.5;
+  margin-top: 1em;
+}
+
+h4,
+.as_h4 {
+  color: var(--title-color);
+  font-size: 1.16em;
+  line-height: 1.5;
+}
+
+h5 {
+  color: var(--title-color);
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+h6 {
+  color: var(--title-color);
+  font-size: 1em;
+  line-height: 1.5;
+}

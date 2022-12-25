@@ -1,0 +1,1 @@
+'use strict';$(()=>{$('#link-insert-ok').prop('disabled',true);$('#link-insert-ok').addClass('disabled');$('#href').on('input',function(){$('#link-insert-ok').prop('disabled',this.value=='');$('#link-insert-ok').toggleClass('disabled',this.value=='');});$('#href').trigger('focus');dotclear.enterKeyInForm('#link-insert-form','#link-insert-ok','#link-insert-cancel');});
